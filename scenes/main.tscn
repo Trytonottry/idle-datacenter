@@ -1,0 +1,116 @@
+[gd_scene load_steps=8 format=3 uid="uid://c0main"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/managers/economy_manager.gd" id="2_eco_manager"]
+[ext_resource type="Script" path="res://scripts/managers/rack_manager.gd" id="3_rack_manager"]
+[ext_resource type="Script" path="res://scripts/managers/event_manager.gd" id="4_event_manager"]
+[ext_resource type="Script" path="res://scripts/save_system.gd" id="5_save"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_main")
+
+[node name="EconomyManager" type="Node" parent="."]
+script = ExtResource("2_eco_manager")
+
+[node name="RackManager" type="Node" parent="."]
+script = ExtResource("3_rack_manager")
+
+[node name="EventManager" type="Node" parent="."]
+script = ExtResource("4_event_manager")
+
+[node name="SaveSystem" type="Node" parent="."]
+script = ExtResource("5_save")
+
+[node name="IncomeTimer" type="Timer" parent="."]
+wait_time = 1.0
+autostart = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="RootVBox" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/RootVBox"]
+layout_mode = 2
+text = "Idle Datacenter"
+
+[node name="MoneyLabel" type="Label" parent="MarginContainer/RootVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Money: $0"
+
+[node name="IncomeLabel" type="Label" parent="MarginContainer/RootVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Income/s: $0"
+
+[node name="PowerLabel" type="Label" parent="MarginContainer/RootVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Power: 0 / 0"
+
+[node name="CoolingLabel" type="Label" parent="MarginContainer/RootVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cooling: 0 / 0"
+
+[node name="EventLabel" type="Label" parent="MarginContainer/RootVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Event: None"
+
+[node name="ButtonRow" type="HBoxContainer" parent="MarginContainer/RootVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BuyRackButton" type="Button" parent="MarginContainer/RootVBox/ButtonRow"]
+layout_mode = 2
+text = "Buy Rack ($100)"
+
+[node name="BuyServerButton" type="Button" parent="MarginContainer/RootVBox/ButtonRow"]
+layout_mode = 2
+text = "Buy Server"
+
+[node name="UpgradePowerButton" type="Button" parent="MarginContainer/RootVBox/ButtonRow"]
+layout_mode = 2
+text = "Upgrade Power"
+
+[node name="UpgradeCoolingButton" type="Button" parent="MarginContainer/RootVBox/ButtonRow"]
+layout_mode = 2
+text = "Upgrade Cooling"
+
+[node name="SaveButton" type="Button" parent="MarginContainer/RootVBox/ButtonRow"]
+layout_mode = 2
+text = "Save"
+
+[node name="RacksHeader" type="Label" parent="MarginContainer/RootVBox"]
+layout_mode = 2
+text = "Racks"
+
+[node name="RacksContainer" type="VBoxContainer" parent="MarginContainer/RootVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="pressed" from="MarginContainer/RootVBox/ButtonRow/BuyRackButton" to="." method="_on_buy_rack_button_pressed"]
+[connection signal="pressed" from="MarginContainer/RootVBox/ButtonRow/BuyServerButton" to="." method="_on_buy_server_button_pressed"]
+[connection signal="pressed" from="MarginContainer/RootVBox/ButtonRow/UpgradePowerButton" to="." method="_on_upgrade_power_button_pressed"]
+[connection signal="pressed" from="MarginContainer/RootVBox/ButtonRow/UpgradeCoolingButton" to="." method="_on_upgrade_cooling_button_pressed"]
+[connection signal="pressed" from="MarginContainer/RootVBox/ButtonRow/SaveButton" to="." method="_on_save_button_pressed"]
